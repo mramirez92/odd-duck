@@ -53,6 +53,7 @@
 .footer{
   grid-area: footer;
  grid-column: 1/-1;
+ grid-row: 5/6;
 justify-content: center;
 align-content: center;
 align-items: center;
@@ -141,8 +142,10 @@ footer{
 button{
   color: white;
   border-radius: 25px;
-  background-color: rgb(112, 235, 228);
+  background-color: rgb(103, 213, 207);
   border: none;
+  font-size: 16px;
+  padding: 10px;
 }
 button:hover{
   background-color: #F47B7B;

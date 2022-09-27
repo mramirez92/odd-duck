@@ -1,6 +1,6 @@
 // ***** GLOBAL VARIABLES *****
 
-let voteCount = 5;
+let voteCount = 25;
 let productArray = [];
 
 // ***** DOM REF *****
