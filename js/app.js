@@ -1,12 +1,11 @@
 // ***** GLOBAL VARIABLES *****
 
-let voteCount = 5; 
-let productArray = []; 
+let voteCount = 5;
+let productArray = [];
 
 // ***** DOM REF *****
 let imgContainer = document.getElementById('img-container');
 let resultsContainer = document.getElementById('results-container');
-let resultsBtn = document.getElementById('show-results-btn');
 let viewBtn =document.getElementById('view');
 //js sees src as property
 let imgOne = document.getElementById('imgOne');
@@ -17,7 +16,7 @@ let imgThree = document.getElementById('imgThree');
 // ****** CONSTRUCTOR ******
 function Product (name, fileExtension = 'jpg'){
   this.name = name;
-  //building our file path passing property'name' and using parameter file extension as argument 
+  //building our file path passing property'name' and using parameter file extension as argument
   this.img = `img/${name}.${fileExtension}`;
   this.views = 0;
   this.clicks = 0;
@@ -39,9 +38,9 @@ function renderImg(){
   let imgThreeIndex = randomIndex();
 
   //imgone === imgtwo, make sure indexes are unique
-// loops until images are unique, indexes are not the same. 
-//mutiple conditions to check for three images
-//containers to store your indexes and do your validation on that, array? array methods
+  // loops until images are unique, indexes are not the same.
+  //mutiple conditions to check for three images
+  //containers to store your indexes and do your validation on that, array? array methods
 
   while (imgOneIndex === imgTwoIndex || imgOneIndex === imgThreeIndex || imgTwoIndex === imgThreeIndex){
     imgOneIndex = randomIndex();
@@ -67,17 +66,17 @@ function renderImg(){
 // ***** EVENT HANDLER *****
 
 function handleClick(event){
-  //target is the html element the event happened to. the click happened to. 
+  //target is the html element the event happened to. the click happened to.
   console.dir(event.target);
   let imgClicked = event.target.alt;
-  console.log('img clicked>>', imgClicked); 
+  console.log('img clicked>>', imgClicked);
   //add clicks to img that was clicked
-for (let i= 0; i <productArray.length; i++){
-  if (productArray[i].name === imgClicked){
+  for (let i= 0; i <productArray.length; i++){
+    if (productArray[i].name === imgClicked){
     //if that name in alt strictly equals product in array increment clicks
-    productArray[i].clicks++;
+      productArray[i].clicks++;
+    }
   }
-}
   //decrement vote count
   voteCount--;
   //call render img to reload new images
@@ -85,8 +84,8 @@ for (let i= 0; i <productArray.length; i++){
   //stop votecount after 0, end clicks
   if (voteCount === 0){
     imgContainer.removeEventListener('click', handleClick);
-  
-}
+
+  }
 }
 
 function handleShowResults(event){
@@ -97,7 +96,7 @@ function handleShowResults(event){
       liElem.textContent= `${productArray[i].name} - Number of views: ${productArray[i].views}. Number of clicks: ${productArray[i].clicks}`;
       resultsContainer.appendChild(liElem);
     }
-    
+
     viewBtn.removeEventListener('click', handleShowResults);
   }
 }
