@@ -74,6 +74,7 @@ function renderChart (){
     productViews.push(productArray[i].views);
 
   }
+  Chart.defaults.font.size = 16;
   let chartObj = {
     type: 'bar',
     data: {
@@ -126,7 +127,7 @@ function renderChart (){
       scales: {
         y: {
           beginAtZero: true
-        }
+        },
       }
     }
   };
