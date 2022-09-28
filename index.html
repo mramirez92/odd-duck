@@ -27,19 +27,22 @@
 <div class="info">
     <p id="greeting">Odd Duck Product Co needs your help to decide on our next product launch. Cast your vote for the item you would be interested in seeing as a new creation. Each vote is anonymous. Happy voting!</p>
 </div>
-    <sidebar class="results">
-    <div id="show-results">Click button to display results when voting is finished.
-      <ul id="results-container">
-        
-      </ul>
-      <button id="view">View Results</button>
-    </div>
-    </sidebar>
-    
 
+    <div class="show-results"><p>Results will automatically display when voting is finished.</p>
+         <div id="chartContainer">
+          <canvas id="myChart" ></canvas>
+        </div>
+
+      <!-- <button id="view">View Results</button> -->
+    </div>
+    
+<div class="footer">
   <footer>
     Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum obcaecati, impedit eaque esse accusantium porro aliquid minima veritatis officia ab incidunt tempora iure nihil, praesentium atque, dicta voluptates odit corrupti?
   </footer>
+</div>
+ 
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
   <script src="js/app.js"></script>
 </body>
 </html>
