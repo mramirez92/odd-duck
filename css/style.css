@@ -9,17 +9,23 @@
   gap: 20px;
 
   grid-template-areas:
-  "header header header"
+  /* "header header header"
   "sidebar greeting greeting"
   "sidebar img-container img-container"
   "sidebar img-container img-container"
+  "footer footer footer"; */
+  "header header header"
+  "greeting img-container img-container"
+  "greeting img-container img-container"
+  " .  show-results show-results"
+  " .  show-results show-results"
   "footer footer footer";
 
 }
 
 .grid-container main {
   border: 2px solid black;
-  font-size: 1.5em;
+  font-size: 1.5vw;
   padding: 30px;
 }
 /* columns side to side, rows up and down*/
@@ -28,32 +34,37 @@
   grid-column: 1/-1;
   background-color: rgb(242, 205, 96);
   padding: 20px;
+  font-size: 2.75vw;
 
 }
-
-.results{
- grid-area: sidebar;
- grid-row: 2/5;
-}
-
 .info{
  grid-area: paragraph;
- grid-column: 2/-1;
+ grid-column: 1/2;
  /* grid-row: 4/5; */
- grid-row:2/3;
+ grid-row:2/4;
+ font-size: 1.5vw;
 }
+
 .images{
  grid-area: images; 
  grid-column: 2/-1;
- grid-row: 3/5;
+ grid-row: 2/4;
 
 }
-
+.show-results{
+ grid-area: show-results;
+ grid-row: 4/6;
+ grid-column: 1/-1;
+ font-size: 1.5vw;
+ text-align: center;
+ align-items: center;
+ 
+}
 
 .footer{
   grid-area: footer;
  grid-column: 1/-1;
- grid-row: 5/6;
+ grid-row: 6/7;
 justify-content: center;
 align-content: center;
 align-items: center;
@@ -107,6 +118,10 @@ div{
   background-color: rgb(234, 242, 227);
 }
 
+p{
+  padding: 20px;
+}
+
 img {
   object-fit: cover;
   width: 100%;
@@ -116,37 +131,20 @@ img {
   padding: 20px;
   border-radius: 30px;
 }
-ul{
-  background-color: aliceblue;
-  border-radius: 15px;
-  padding: 20px;
-  list-style: circle;
-  
-}
-
-li{
-  padding: 5px;
-  /* list-style-type:circle; */
-}
-
-
-li::before{
-  padding:5px;
-  content: none;
-}
 
 footer{
-  background-color: goldenrod;
+  font-size: 1.5vw;
+  padding: 30px;
+  text-align: center;
+  border: 20px;
+
 }
 
-button{
-  color: white;
-  border-radius: 25px;
-  background-color: rgb(103, 213, 207);
-  border: none;
-  font-size: 16px;
-  padding: 10px;
+#chartContainer {
+  /* width: 90%; */
 }
-button:hover{
-  background-color: #F47B7B;
+
+#myChart{
+  background-color: rgb(254, 255, 250);
+  padding: 20px;
 }
