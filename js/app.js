@@ -2,11 +2,12 @@
 
 let voteCount = 25;
 let productArray = [];
+let indexArray= [];
+
 
 // ***** DOM REF *****
+const ctx = document.getElementById('myChart').getContext('2d');
 let imgContainer = document.getElementById('img-container');
-let resultsContainer = document.getElementById('results-container');
-let viewBtn =document.getElementById('view');
 //js sees src as property
 let imgOne = document.getElementById('imgOne');
 let imgTwo = document.getElementById('imgTwo');
@@ -24,29 +25,27 @@ function Product (name, fileExtension = 'jpg'){
   productArray.push(this);
 }
 
-
 // ******* HELPER FUNC / UTILITIES *****
 
 function randomIndex(){
   return Math.floor(Math.random()*productArray.length);
 }
 
+
 function renderImg(){
 
-  let imgOneIndex = randomIndex();
-  let imgTwoIndex = randomIndex();
-  let imgThreeIndex = randomIndex();
+  while (indexArray.length < 6){
 
-  //imgone === imgtwo, make sure indexes are unique
-  // loops until images are unique, indexes are not the same.
-  //mutiple conditions to check for three images
-  //containers to store your indexes and do your validation on that, array? array methods
+    let imgRandom = randomIndex();
+    if (!indexArray.includes(imgRandom)){
+      indexArray.push(imgRandom);
 
-  while (imgOneIndex === imgTwoIndex || imgOneIndex === imgThreeIndex || imgTwoIndex === imgThreeIndex){
-    imgOneIndex = randomIndex();
-    imgTwoIndex = randomIndex();
-    imgThreeIndex = randomIndex();
+    }
   }
+
+  let imgOneIndex = indexArray.shift();
+  let imgTwoIndex = indexArray.shift();
+  let imgThreeIndex = indexArray.shift();
 
   imgOne.src = productArray[imgOneIndex].img;
   imgTwo.src = productArray[imgTwoIndex].img;
@@ -56,12 +55,84 @@ function renderImg(){
   productArray[imgTwoIndex].views++;
   productArray[imgThreeIndex].views++;
 
-
   imgOne.alt= productArray[imgOneIndex].name;
   imgTwo.alt = productArray[imgTwoIndex].name;
   imgThree.alt = productArray[imgThreeIndex].name;
-
 }
+
+// ***** chart function *****
+
+function renderChart (){
+
+  let productNames = [];
+  let productVotes = [];
+  let productViews = [];
+
+  for (let i = 0; i <productArray.length; i++){
+    productNames.push(productArray[i].name);
+    productVotes.push(productArray[i].clicks);
+    productViews.push(productArray[i].views);
+
+  }
+  let chartObj = {
+    type: 'bar',
+    data: {
+      //labels name of products//
+      labels: productNames,
+      //aray of objects that are going to render on my chart//
+      datasets: [{
+        label: '# of Votes',
+        data: productVotes,
+        backgroundColor: [
+          'rgba(242, 242, 48)',
+          'rgba(194, 242, 97)',
+          'rgba(145, 242, 145)',
+          'rgba(97, 242, 194)',
+          'rgba(48, 242, 242)',
+        ],
+        borderColor: [
+          'rgba(231, 231, 13, 1)',
+          'rgba(183, 240, 70, 1)',
+          'rgba(118, 239, 118, 1)',
+          'rgba(70, 240, 183, 1)',
+          'rgba(27, 240, 240, 1)',
+        ],
+        borderWidth: 1
+      },
+      {
+        label: '# of Views',
+        data: productViews,
+        backgroundColor: [
+          'rgba(246, 246, 101, 0.5)',
+          'rgba(194, 242, 97, 0.5)',
+          'rgba(145, 242, 145, 0.5)',
+          'rgba(97, 242, 194, 0.5)',
+          'rgba(48, 242, 242, 0.5)',
+        ],
+        borderColor: [
+          'rgba(231, 231, 13, 1)',
+          'rgba(183, 240, 70, 1)',
+          'rgba(118, 239, 118, 1)',
+          'rgba(70, 240, 183, 1)',
+          'rgba(27, 240, 240, 1)',
+
+        ],
+        borderWidth: 3,
+        barPercentage: 1.0
+      }
+      ],
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  };
+  new Chart(ctx, chartObj);
+}
+
 
 // ***** EVENT HANDLER *****
 
@@ -77,29 +148,28 @@ function handleClick(event){
       productArray[i].clicks++;
     }
   }
-  //decrement vote count
   voteCount--;
-  //call render img to reload new images
   renderImg();
-  //stop votecount after 0, end clicks
   if (voteCount === 0){
     imgContainer.removeEventListener('click', handleClick);
-
+    renderChart();
   }
+
 }
 
-function handleShowResults(event){
-  //display results when votes === 0 ;
-  if (voteCount === 0){
-    for (i=0; i<productArray.length; i++){
-      let liElem = document.createElement('li');
-      liElem.textContent= `${productArray[i].name} - Number of views: ${productArray[i].views}. Number of clicks: ${productArray[i].clicks}`;
-      resultsContainer.appendChild(liElem);
-    }
+// function handleShowResults(event){
+//   display results when votes === 0 ;
+//   if (voteCount === 0){
+//     renderChart();
+//     for (i=0; i<productArray.length; i++){
+//       let liElem = document.createElement('li');
+//       liElem.textContent= `${productArray[i].name} - Number of views: ${productArray[i].views}. Number of clicks: ${productArray[i].clicks}`;
+//       resultsContainer.appendChild(liElem);
+//     }
 
-    viewBtn.removeEventListener('click', handleShowResults);
-  }
-}
+//     viewBtn.removeEventListener('click', handleShowResults);
+//   }
+// }
 
 // OBJECT CREATION //
 new Product('bag');
@@ -122,10 +192,9 @@ new Product('unicorn');
 new Product('water-can');
 new Product('wine-glass');
 
-
-
 renderImg();
+
 
 // event, event callback;
 imgContainer.addEventListener('click', handleClick);
-viewBtn.addEventListener('click', handleShowResults);
+// viewBtn.addEventListener('click', handleShowResults);
