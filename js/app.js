@@ -154,48 +154,50 @@ function handleClick(event){
   if (voteCount === 0){
     imgContainer.removeEventListener('click', handleClick);
     renderChart();
-  }
+    //JSON makes data into string
+    let stringifiedProducts = JSON.stringify(productArray);
 
+    //ADD TO LOCAL STORAGE >> still string, but locally stored
+    localStorage.setItem('products', stringifiedProducts);
+  }
 }
 
-// function handleShowResults(event){
-//   display results when votes === 0 ;
-//   if (voteCount === 0){
-//     renderChart();
-//     for (i=0; i<productArray.length; i++){
-//       let liElem = document.createElement('li');
-//       liElem.textContent= `${productArray[i].name} - Number of views: ${productArray[i].views}. Number of clicks: ${productArray[i].clicks}`;
-//       resultsContainer.appendChild(liElem);
-//     }
+//local storage code :
+//pull data out of local storage. persist data; using stringifyed item as key
+let retrivedProducts =localStorage.getItem('products');
 
-//     viewBtn.removeEventListener('click', handleShowResults);
-//   }
-// }
+//parse data into code app can use, breaks down string by looking for groupings >>  reusable code
+let parsedProducts = JSON.parse(retrivedProducts);
 
-// OBJECT CREATION //
-new Product('bag');
-new Product('banana');
-new Product('bathroom');
-new Product('boots');
-new Product('breakfast');
-new Product('bubblegum');
-new Product('chair');
-new Product('cthulhu');
-new Product('dog-duck');
-new Product('dragon');
-new Product('pen');
-new Product('pet-sweep');
-new Product('scissors');
-new Product('shark');
-new Product('sweep', 'png');
-new Product('tauntaun');
-new Product('unicorn');
-new Product('water-can');
-new Product('wine-glass');
+// if site visited before, render locally stored Products else if this is the first time on page, new product instances are run.
+
+if (retrivedProducts){
+  productArray= parsedProducts;
+}else{
+  // OBJECT CREATION //
+  new Product('bag');
+  new Product('banana');
+  new Product('bathroom');
+  new Product('boots');
+  new Product('breakfast');
+  new Product('bubblegum');
+  new Product('chair');
+  new Product('cthulhu');
+  new Product('dog-duck');
+  new Product('dragon');
+  new Product('pen');
+  new Product('pet-sweep');
+  new Product('scissors');
+  new Product('shark');
+  new Product('sweep', 'png');
+  new Product('tauntaun');
+  new Product('unicorn');
+  new Product('water-can');
+  new Product('wine-glass');
+}
 
 renderImg();
 
-
 // event, event callback;
 imgContainer.addEventListener('click', handleClick);
-// viewBtn.addEventListener('click', handleShowResults);
+
